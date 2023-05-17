@@ -1,25 +1,16 @@
-import { useEffect, useState } from "react";
+import { useEffect, useContext } from "react";
 import Spinner from "../layout/Spinner";
 import UserItem from "./UserItem";
-
+import GithubContext from "../../context/github/GithubContext";
 
 function UserResults() {
-  // users state is used to store all the user fecthed on page load
-  const [users, setUsers] = useState([])
-  const [loading, setLoading] = useState(true)
-
+  const { users, loading, fetchUsers } = useContext(GithubContext)
+  
   // Calling FetchUsers functions on every page load
   useEffect(() => {
     fetchUsers()
   }, [])
 
-  // Fetch User function to get the users array from GithHub API 
-  const fetchUsers = async () => {
-    const response = await fetch("https://api.github.com/users")
-    const data = await response.json()
-    setUsers(data)
-    setLoading(false)
-  }
 
   if(!loading) {
     return (
