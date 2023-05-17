@@ -10,19 +10,26 @@ const GITHUB_URL = "https://api.github.com"
 export const GithubProvider = ({children}) => {
   const intialState = {
     users: [],
-    loading: true
+    loading: false
   }
 
   const [state, dispatch] = useReducer(githubReducer, intialState)
 
-  // Fetch User function to get the users array from GithHub API 
+  // Get initial Users (testing purposes)
   const fetchUsers = async () => {
+    setLoading()
     const response = await fetch(`${GITHUB_URL}/users`)
     const data = await response.json()
-
     dispatch({
       type: 'GET_USERS',
       payload: data
+    })
+  }
+
+  // Set Loading
+  const setLoading = () => {
+    dispatch({
+      type: 'SET_LOADING'
     })
   }
 
